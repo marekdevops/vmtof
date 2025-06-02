@@ -1,0 +1,10 @@
+provider_installation {
+  filesystem_mirror {
+    path    = "/opt/tofu-plugins"
+    include = ["hashicorp/vsphere"]
+  }
+
+  direct {
+    exclude = ["hashicorp/vsphere"]
+  }
+}
