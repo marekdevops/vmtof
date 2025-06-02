@@ -38,6 +38,19 @@ resource "vsphere_virtual_machine" "cloned_vm" {
     network_id   = data.vsphere_network.network.id
     adapter_type = data.vsphere_virtual_machine.template.network_interface_types[0]
   }
+  disk {
+    label            = "Hard disk 1"
+    size             = data.vsphere_virtual_machine.template.disks[0].size
+    eagerly_scrub    = false
+    thin_provisioned = data.vsphere_virtual_machine.template.disks[0].thin_provisioned
+  }
+
+  disk {
+    label            = "Hard disk 2"
+    size             = data.vsphere_virtual_machine.template.disks[1].size
+    eagerly_scrub    = false
+    thin_provisioned = data.vsphere_virtual_machine.template.disks[1].thin_provisioned
+  }
 
   clone {
     template_uuid = data.vsphere_virtual_machine.template.id
