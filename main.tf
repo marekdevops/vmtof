@@ -30,7 +30,8 @@ data "vsphere_virtual_machine" "template" {
 }
 
 resource "vsphere_virtual_machine" "cloned_vm" {
-  name             = var.vm_name
+  count            = var.vm_count
+  name             = "${var.vm_prefix}${count.index + 1}-vm"
   resource_pool_id = data.vsphere_compute_cluster.cluster.resource_pool_id
   datastore_id     = data.vsphere_datastore.datastore.id
 

@@ -6,4 +6,6 @@ datastore        = "datastore1"
 cluster          = "Cluster1"
 network          = "VM Network"
 template         = "ubuntu-template"
-vm_name          = "cloned-vm01"
+# vm_name jest teraz nieużywane - nazwy są generowane automatycznie
+vm_count         = 5
+vm_prefix        = "cloned"
