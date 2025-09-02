@@ -17,3 +17,8 @@ variable "vm_prefix" {
   type        = string
   default     = "cloned"
 }
+variable "vm_domain" {
+  description = "Domena dla FQDN maszyn wirtualnych"
+  type        = string
+  default     = "example.com.pl"
+}

@@ -9,3 +9,4 @@ template         = "ubuntu-template"
 # vm_name jest teraz nieużywane - nazwy są generowane automatycznie
 vm_count         = 5
 vm_prefix        = "cloned"
+vm_domain        = "example.com.pl"
