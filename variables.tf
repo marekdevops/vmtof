@@ -6,7 +6,6 @@ variable "datastore" {}
 variable "cluster" {}
 variable "network" {}
 variable "template" {}
-variable "vm_name" {}
 variable "vm_count" {
   description = "Liczba maszyn wirtualnych do utworzenia"
   type        = number
