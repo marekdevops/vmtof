@@ -53,4 +53,19 @@ resource "vsphere_virtual_machine" "cloned_vm" {
   clone {
     template_uuid = data.vsphere_virtual_machine.template.id
   }
+
+  # Wyłącz oczekiwanie na VMware Tools
+  wait_for_guest_net_timeout = 0
+  wait_for_guest_ip_timeout  = 0
+  
+  # Dodatkowe ustawienia dla maszyn bez OS
+  wait_for_guest_net_routable = false
+  shutdown_wait_timeout       = 3
+  
+  # Opcjonalnie: ustaw timeout dla całej operacji
+  timeouts {
+    create = "10m"
+    update = "10m"
+    delete = "10m"
+  }
 }
