@@ -10,3 +10,5 @@ template         = "ubuntu-template"
 vm_count         = 5
 vm_prefix        = "cloned"
 vm_domain        = "example.com.pl"
+# Przykład: iso_path = "iso/ubuntu-22.04.3-desktop-amd64.iso"
+iso_path         = ""

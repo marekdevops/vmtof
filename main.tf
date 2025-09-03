@@ -50,6 +50,12 @@ resource "vsphere_virtual_machine" "cloned_vm" {
     thin_provisioned = true
   }
 
+  # CD-ROM z obrazem ISO (jeśli podano)
+  cdrom {
+    datastore_id = var.iso_path != "" ? data.vsphere_datastore.datastore.id : null
+    path         = var.iso_path != "" ? var.iso_path : null
+  }
+
   clone {
     template_uuid = data.vsphere_virtual_machine.template.id
   }

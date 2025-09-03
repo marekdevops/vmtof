@@ -21,3 +21,8 @@ variable "vm_domain" {
   type        = string
   default     = "example.com.pl"
 }
+variable "iso_path" {
+  description = "Ścieżka do pliku ISO na datastore (opcjonalne)"
+  type        = string
+  default     = ""
+}
