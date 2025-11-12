@@ -39,6 +39,8 @@ resource "vsphere_virtual_machine" "cloned_vm" {
   memory   = data.vsphere_virtual_machine.template.memory
   guest_id = data.vsphere_virtual_machine.template.guest_id
 
+  enable_disk_uuid = true
+
   network_interface {
     network_id   = data.vsphere_network.network.id
     adapter_type = data.vsphere_virtual_machine.template.network_interface_types[0]
