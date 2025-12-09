@@ -178,11 +178,4 @@ resource "vsphere_virtual_machine" "worker_vms" {
   # Dodatkowe ustawienia dla maszyn bez OS
   wait_for_guest_net_routable = false
   shutdown_wait_timeout       = 3
-  
-  # Opcjonalnie: ustaw timeout dla całej operacji
-  timeouts {
-    create = "10m"
-    update = "10m"
-    delete = "10m"
-  }
 }
