@@ -51,6 +51,7 @@ resource "vsphere_virtual_machine" "master_vms" {
   name             = "${var.master_prefix}${count.index}.${var.vm_domain}"
   resource_pool_id = data.vsphere_compute_cluster.cluster.resource_pool_id
   datastore_id     = data.vsphere_datastore.datastore.id
+  folder           = var.vm_folder
 
   num_cpus = data.vsphere_virtual_machine.master_template[0].num_cpus
   memory   = data.vsphere_virtual_machine.master_template[0].memory
@@ -101,6 +102,7 @@ resource "vsphere_virtual_machine" "infra_vms" {
   name             = "${var.infra_prefix}${count.index}.${var.vm_domain}"
   resource_pool_id = data.vsphere_compute_cluster.cluster.resource_pool_id
   datastore_id     = data.vsphere_datastore.datastore.id
+  folder           = var.vm_folder
 
   num_cpus = data.vsphere_virtual_machine.infra_template[0].num_cpus
   memory   = data.vsphere_virtual_machine.infra_template[0].memory
@@ -151,6 +153,7 @@ resource "vsphere_virtual_machine" "worker_vms" {
   name             = "${var.worker_prefix}${count.index}.${var.vm_domain}"
   resource_pool_id = data.vsphere_compute_cluster.cluster.resource_pool_id
   datastore_id     = data.vsphere_datastore.datastore.id
+  folder           = var.vm_folder
 
   num_cpus = data.vsphere_virtual_machine.worker_template[0].num_cpus
   memory   = data.vsphere_virtual_machine.worker_template[0].memory

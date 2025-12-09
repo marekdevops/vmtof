@@ -24,6 +24,7 @@ infra_prefix     = "infra"
 worker_prefix    = "worker"
 
 vm_domain        = "example.com.pl"
+vm_folder        = "MyVMs"
 
 # Przykład: iso_path = "iso/ubuntu-22.04.3-desktop-amd64.iso"
 iso_path         = ""

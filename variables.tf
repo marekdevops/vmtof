@@ -66,6 +66,12 @@ variable "vm_domain" {
   default     = "example.com.pl"
 }
 
+variable "vm_folder" {
+  description = "Folder w vCenter gdzie zostaną umieszczone maszyny wirtualne"
+  type        = string
+  default     = ""
+}
+
 variable "iso_path" {
   description = "Ścieżka do pliku ISO na datastore (opcjonalne)"
   type        = string
