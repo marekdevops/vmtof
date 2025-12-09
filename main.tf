@@ -56,6 +56,7 @@ resource "vsphere_virtual_machine" "master_vms" {
   num_cpus = data.vsphere_virtual_machine.master_template[0].num_cpus
   memory   = data.vsphere_virtual_machine.master_template[0].memory
   guest_id = data.vsphere_virtual_machine.master_template[0].guest_id
+  firmware = "efi"
 
   enable_disk_uuid = true
 
@@ -87,13 +88,6 @@ resource "vsphere_virtual_machine" "master_vms" {
   # Dodatkowe ustawienia dla maszyn bez OS
   wait_for_guest_net_routable = false
   shutdown_wait_timeout       = 3
-  
-  # Opcjonalnie: ustaw timeout dla całej operacji
-  timeouts {
-    create = "10m"
-    update = "10m"
-    delete = "10m"
-  }
 }
 
 # Maszyny infra
@@ -107,6 +101,7 @@ resource "vsphere_virtual_machine" "infra_vms" {
   num_cpus = data.vsphere_virtual_machine.infra_template[0].num_cpus
   memory   = data.vsphere_virtual_machine.infra_template[0].memory
   guest_id = data.vsphere_virtual_machine.infra_template[0].guest_id
+  firmware = "efi"
 
   enable_disk_uuid = true
 
@@ -138,13 +133,6 @@ resource "vsphere_virtual_machine" "infra_vms" {
   # Dodatkowe ustawienia dla maszyn bez OS
   wait_for_guest_net_routable = false
   shutdown_wait_timeout       = 3
-  
-  # Opcjonalnie: ustaw timeout dla całej operacji
-  timeouts {
-    create = "10m"
-    update = "10m"
-    delete = "10m"
-  }
 }
 
 # Maszyny worker
@@ -158,6 +146,7 @@ resource "vsphere_virtual_machine" "worker_vms" {
   num_cpus = data.vsphere_virtual_machine.worker_template[0].num_cpus
   memory   = data.vsphere_virtual_machine.worker_template[0].memory
   guest_id = data.vsphere_virtual_machine.worker_template[0].guest_id
+  firmware = "efi"
 
   enable_disk_uuid = true
 
