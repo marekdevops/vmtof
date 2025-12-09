@@ -24,48 +24,48 @@ data "vsphere_network" "network" {
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
-# Template dla maszyn aplikacyjnych
-data "vsphere_virtual_machine" "app_template" {
-  count         = var.app_template != null && var.app_count > 0 ? 1 : 0
-  name          = var.app_template
+# Template dla maszyn master
+data "vsphere_virtual_machine" "master_template" {
+  count         = var.master_template != null && var.master_count > 0 ? 1 : 0
+  name          = var.master_template
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
-# Template dla maszyn bazodanowych
-data "vsphere_virtual_machine" "db_template" {
-  count         = var.db_template != null && var.db_count > 0 ? 1 : 0
-  name          = var.db_template
+# Template dla maszyn infra
+data "vsphere_virtual_machine" "infra_template" {
+  count         = var.infra_template != null && var.infra_count > 0 ? 1 : 0
+  name          = var.infra_template
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
-# Template dla maszyn webowych
-data "vsphere_virtual_machine" "appwww_template" {
-  count         = var.appwww_template != null && var.appwww_count > 0 ? 1 : 0
-  name          = var.appwww_template
+# Template dla maszyn worker
+data "vsphere_virtual_machine" "worker_template" {
+  count         = var.worker_template != null && var.worker_count > 0 ? 1 : 0
+  name          = var.worker_template
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
-# Maszyny aplikacyjne
-resource "vsphere_virtual_machine" "app_vms" {
-  count            = var.app_template != null ? var.app_count : 0
-  name             = "${var.app_prefix}${count.index}.${var.vm_domain}"
+# Maszyny master
+resource "vsphere_virtual_machine" "master_vms" {
+  count            = var.master_template != null ? var.master_count : 0
+  name             = "${var.master_prefix}${count.index}.${var.vm_domain}"
   resource_pool_id = data.vsphere_compute_cluster.cluster.resource_pool_id
   datastore_id     = data.vsphere_datastore.datastore.id
 
-  num_cpus = data.vsphere_virtual_machine.app_template[0].num_cpus
-  memory   = data.vsphere_virtual_machine.app_template[0].memory
-  guest_id = data.vsphere_virtual_machine.app_template[0].guest_id
+  num_cpus = data.vsphere_virtual_machine.master_template[0].num_cpus
+  memory   = data.vsphere_virtual_machine.master_template[0].memory
+  guest_id = data.vsphere_virtual_machine.master_template[0].guest_id
 
   enable_disk_uuid = true
 
   network_interface {
     network_id   = data.vsphere_network.network.id
-    adapter_type = data.vsphere_virtual_machine.app_template[0].network_interface_types[0]
+    adapter_type = data.vsphere_virtual_machine.master_template[0].network_interface_types[0]
   }
 
   disk {
     label            = "disk0"
-    size             = data.vsphere_virtual_machine.app_template[0].disks.0.size
+    size             = data.vsphere_virtual_machine.master_template[0].disks.0.size
     thin_provisioned = true
   }
 
@@ -76,7 +76,7 @@ resource "vsphere_virtual_machine" "app_vms" {
   }
 
   clone {
-    template_uuid = data.vsphere_virtual_machine.app_template[0].id
+    template_uuid = data.vsphere_virtual_machine.master_template[0].id
   }
 
   # Wyłącz oczekiwanie na VMware Tools
@@ -95,27 +95,27 @@ resource "vsphere_virtual_machine" "app_vms" {
   }
 }
 
-# Maszyny bazodanowe
-resource "vsphere_virtual_machine" "db_vms" {
-  count            = var.db_template != null ? var.db_count : 0
-  name             = "${var.db_prefix}${count.index}.${var.vm_domain}"
+# Maszyny infra
+resource "vsphere_virtual_machine" "infra_vms" {
+  count            = var.infra_template != null ? var.infra_count : 0
+  name             = "${var.infra_prefix}${count.index}.${var.vm_domain}"
   resource_pool_id = data.vsphere_compute_cluster.cluster.resource_pool_id
   datastore_id     = data.vsphere_datastore.datastore.id
 
-  num_cpus = data.vsphere_virtual_machine.db_template[0].num_cpus
-  memory   = data.vsphere_virtual_machine.db_template[0].memory
-  guest_id = data.vsphere_virtual_machine.db_template[0].guest_id
+  num_cpus = data.vsphere_virtual_machine.infra_template[0].num_cpus
+  memory   = data.vsphere_virtual_machine.infra_template[0].memory
+  guest_id = data.vsphere_virtual_machine.infra_template[0].guest_id
 
   enable_disk_uuid = true
 
   network_interface {
     network_id   = data.vsphere_network.network.id
-    adapter_type = data.vsphere_virtual_machine.db_template[0].network_interface_types[0]
+    adapter_type = data.vsphere_virtual_machine.infra_template[0].network_interface_types[0]
   }
 
   disk {
     label            = "disk0"
-    size             = data.vsphere_virtual_machine.db_template[0].disks.0.size
+    size             = data.vsphere_virtual_machine.infra_template[0].disks.0.size
     thin_provisioned = true
   }
 
@@ -126,7 +126,7 @@ resource "vsphere_virtual_machine" "db_vms" {
   }
 
   clone {
-    template_uuid = data.vsphere_virtual_machine.db_template[0].id
+    template_uuid = data.vsphere_virtual_machine.infra_template[0].id
   }
 
   # Wyłącz oczekiwanie na VMware Tools
@@ -145,27 +145,27 @@ resource "vsphere_virtual_machine" "db_vms" {
   }
 }
 
-# Maszyny webowe
-resource "vsphere_virtual_machine" "appwww_vms" {
-  count            = var.appwww_template != null ? var.appwww_count : 0
-  name             = "${var.appwww_prefix}${count.index}.${var.vm_domain}"
+# Maszyny worker
+resource "vsphere_virtual_machine" "worker_vms" {
+  count            = var.worker_template != null ? var.worker_count : 0
+  name             = "${var.worker_prefix}${count.index}.${var.vm_domain}"
   resource_pool_id = data.vsphere_compute_cluster.cluster.resource_pool_id
   datastore_id     = data.vsphere_datastore.datastore.id
 
-  num_cpus = data.vsphere_virtual_machine.appwww_template[0].num_cpus
-  memory   = data.vsphere_virtual_machine.appwww_template[0].memory
-  guest_id = data.vsphere_virtual_machine.appwww_template[0].guest_id
+  num_cpus = data.vsphere_virtual_machine.worker_template[0].num_cpus
+  memory   = data.vsphere_virtual_machine.worker_template[0].memory
+  guest_id = data.vsphere_virtual_machine.worker_template[0].guest_id
 
   enable_disk_uuid = true
 
   network_interface {
     network_id   = data.vsphere_network.network.id
-    adapter_type = data.vsphere_virtual_machine.appwww_template[0].network_interface_types[0]
+    adapter_type = data.vsphere_virtual_machine.worker_template[0].network_interface_types[0]
   }
 
   disk {
     label            = "disk0"
-    size             = data.vsphere_virtual_machine.appwww_template[0].disks.0.size
+    size             = data.vsphere_virtual_machine.worker_template[0].disks.0.size
     thin_provisioned = true
   }
 
@@ -176,7 +176,7 @@ resource "vsphere_virtual_machine" "appwww_vms" {
   }
 
   clone {
-    template_uuid = data.vsphere_virtual_machine.appwww_template[0].id
+    template_uuid = data.vsphere_virtual_machine.worker_template[0].id
   }
 
   # Wyłącz oczekiwanie na VMware Tools

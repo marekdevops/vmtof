@@ -1,34 +1,34 @@
-output "app_vm_ips" {
-  description = "Adresy IP maszyn aplikacyjnych"
-  value       = vsphere_virtual_machine.app_vms[*].default_ip_address
+output "master_vm_ips" {
+  description = "Adresy IP maszyn master"
+  value       = vsphere_virtual_machine.master_vms[*].default_ip_address
 }
 
-output "app_vm_names" {
-  description = "Nazwy maszyn aplikacyjnych"
-  value       = vsphere_virtual_machine.app_vms[*].name
+output "master_vm_names" {
+  description = "Nazwy maszyn master"
+  value       = vsphere_virtual_machine.master_vms[*].name
 }
 
-output "db_vm_ips" {
-  description = "Adresy IP maszyn bazodanowych"
-  value       = vsphere_virtual_machine.db_vms[*].default_ip_address
+output "infra_vm_ips" {
+  description = "Adresy IP maszyn infra"
+  value       = vsphere_virtual_machine.infra_vms[*].default_ip_address
 }
 
-output "db_vm_names" {
-  description = "Nazwy maszyn bazodanowych"
-  value       = vsphere_virtual_machine.db_vms[*].name
+output "infra_vm_names" {
+  description = "Nazwy maszyn infra"
+  value       = vsphere_virtual_machine.infra_vms[*].name
 }
 
-output "appwww_vm_ips" {
-  description = "Adresy IP maszyn webowych"
-  value       = vsphere_virtual_machine.appwww_vms[*].default_ip_address
+output "worker_vm_ips" {
+  description = "Adresy IP maszyn worker"
+  value       = vsphere_virtual_machine.worker_vms[*].default_ip_address
 }
 
-output "appwww_vm_names" {
-  description = "Nazwy maszyn webowych"
-  value       = vsphere_virtual_machine.appwww_vms[*].name
+output "worker_vm_names" {
+  description = "Nazwy maszyn worker"
+  value       = vsphere_virtual_machine.worker_vms[*].name
 }
 
 output "all_vm_names" {
   description = "Nazwy wszystkich utworzonych maszyn"
-  value       = concat(vsphere_virtual_machine.app_vms[*].name, vsphere_virtual_machine.db_vms[*].name, vsphere_virtual_machine.appwww_vms[*].name)
+  value       = concat(vsphere_virtual_machine.master_vms[*].name, vsphere_virtual_machine.infra_vms[*].name, vsphere_virtual_machine.worker_vms[*].name)
 }

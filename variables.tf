@@ -6,58 +6,58 @@ variable "datastore" {}
 variable "cluster" {}
 variable "network" {}
 
-variable "app_template" {
-  description = "Nazwa template dla maszyn aplikacyjnych"
+variable "master_template" {
+  description = "Nazwa template dla maszyn master"
   type        = string
   default     = null
 }
 
-variable "db_template" {
-  description = "Nazwa template dla maszyn bazodanowych"
+variable "infra_template" {
+  description = "Nazwa template dla maszyn infra"
   type        = string
   default     = null
 }
 
-variable "appwww_template" {
-  description = "Nazwa template dla maszyn webowych"
+variable "worker_template" {
+  description = "Nazwa template dla maszyn worker"
   type        = string
   default     = null
 }
 
-variable "app_count" {
-  description = "Liczba maszyn aplikacyjnych do utworzenia"
+variable "master_count" {
+  description = "Liczba maszyn master do utworzenia"
   type        = number
   default     = 0
 }
 
-variable "db_count" {
-  description = "Liczba maszyn bazodanowych do utworzenia"
+variable "infra_count" {
+  description = "Liczba maszyn infra do utworzenia"
   type        = number
   default     = 0
 }
 
-variable "appwww_count" {
-  description = "Liczba maszyn webowych do utworzenia"
+variable "worker_count" {
+  description = "Liczba maszyn worker do utworzenia"
   type        = number
   default     = 0
 }
 
-variable "app_prefix" {
-  description = "Prefiks dla nazw maszyn aplikacyjnych"
+variable "master_prefix" {
+  description = "Prefiks dla nazw maszyn master"
   type        = string
-  default     = "app"
+  default     = "master"
 }
 
-variable "db_prefix" {
-  description = "Prefiks dla nazw maszyn bazodanowych"
+variable "infra_prefix" {
+  description = "Prefiks dla nazw maszyn infra"
   type        = string
-  default     = "db"
+  default     = "infra"
 }
 
-variable "appwww_prefix" {
-  description = "Prefiks dla nazw maszyn webowych"
+variable "worker_prefix" {
+  description = "Prefiks dla nazw maszyn worker"
   type        = string
-  default     = "appwww"
+  default     = "worker"
 }
 
 variable "vm_domain" {

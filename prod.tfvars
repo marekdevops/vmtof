@@ -6,22 +6,22 @@ datastore        = "datastore1"
 cluster          = "Cluster1"
 network          = "VM Network"
 
-# Template dla maszyn aplikacyjnych
-app_template     = "ubuntu-app-template"
-# Template dla maszyn bazodanowych
-db_template      = "ubuntu-db-template"
-# Template dla maszyn webowych
-appwww_template  = "ubuntu-www-template"
+# Template dla maszyn master
+master_template  = "ubuntu-master-template"
+# Template dla maszyn infra
+infra_template   = "ubuntu-infra-template"
+# Template dla maszyn worker
+worker_template  = "ubuntu-worker-template"
 
 # Liczba maszyn każdego typu
-app_count        = 3
-db_count         = 3
-appwww_count     = 3
+master_count     = 3
+infra_count      = 3
+worker_count     = 3
 
 # Prefiksy dla nazw maszyn
-app_prefix       = "app"
-db_prefix        = "db"
-appwww_prefix    = "appwww"
+master_prefix    = "master"
+infra_prefix     = "infra"
+worker_prefix    = "worker"
 
 vm_domain        = "example.com.pl"
 
